@@ -3,174 +3,150 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ancodeb | 写字的人</title>
-  <meta name="description" content="一个安静的角落，写点喜欢的东西。" />
-  
-  <!-- Tailwind CSS CDN -->
+  <title>ancodeb</title>
+  <meta name="description" content="ancodeb 的数字花园 · 代码、思考与碎碎念" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Marked.js 用于渲染 Markdown -->
+  <!-- Markdown 解析 -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <!-- 图标库 -->
-  <script src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/index.min.js"></script>
-  
+  <!-- 代码高亮：Atom One Dark -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
   <style>
-    :root {
-      --bg: #fafafa;
-      --text: #1f2937;
-      --primary: #6366f1;
-      --card: rgba(255, 255, 255, 0.75);
-      --border: rgba(0,0,0,0.08);
+    :root {--primary: #a78bfa; --bg: #0f0f1a; --text: #e0e7ff; --card: rgba(30,20,70,0.5);}
+    @media (prefers-color-scheme: light) {
+      :root {--bg: #fafafa; --text: #1f2937; --card: rgba(255,255,255,0.8);}
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f1120;
-        --text: #e2e8f0;
-        --primary: #818cf8;
-        --card: rgba(30, 34, 58, 0.65);
-        --border: rgba(255,255,255,0.1);
-      }
-    }
-    body.dark {
-      --bg: #0f1120;
-      --text: #e2e8f0;
-      --primary: #818cf8;
-      --card: rgba(30, 34, 58, 0.65);
-      --border: rgba(255,255,255,0.1);
-    }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .glass {
-      background: var(--card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-    }
-    #progress {
-      position: fixed;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: var(--primary);
-      transform-origin: 0%;
-      z-index: 50;
-      transition: transform 0.2s;
-    }
+    body {background:var(--bg); color:var(--text); transition:all .5s;}
+    body.light {--bg:#fafafa; --text:#1f2937; --card:rgba(255,255,255,0.8);}
+    .glass {background:var(--card); backdrop-filter:blur(20px); border:1px solid rgba(167,139,250,0.2);}
+    #progress {position:fixed; top:0; left:0; z-index:50; height:4px; background:linear-gradient(90deg,#7c3aed,#a78bfa); transform-origin:0%; box-shadow:0 0 20px rgba(167,139,250,0.6);}
+    .neon-text {text-shadow:0 0 20px rgba(167,139,250,0.5);}
+    article img {max-width:100%; border-radius:12px; margin:1.5rem 0;}
+    pre {overflow-x:auto; border-radius:12px; padding:1rem !important;}
   </style>
 </head>
-<body class="min-h-screen font-sans antialiased">
+<body class="min-h-screen font-mono antialiased">
 
-  <!-- 滚动进度条 -->
   <div id="progress"></div>
 
   <!-- Header -->
-  <header class="fixed top-0 w-full z-40 glass border-b border-gray-200 dark:border-gray-800">
-    <div class="max-w-5xl mx-auto px-6 py-5 flex justify-between items-center">
-      <h1 class="text-2xl font-bold tracking-tight">
-        <a href="#" class="hover:text-indigo-500 transition">ancodeb</a>
+  <header class="fixed top-0 w-full z-40 glass border-b border-purple-500/20">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+      <h1 class="text-3xl font-black">
+        <a href="#" onclick="showList()" class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent neon-text">ancodeb</a>
       </h1>
-      <nav class="flex items-center gap-8">
-        <a href="#articles" class="hover:text-indigo-500 transition">文章</a>
-        <a href="#about" class="hover:text-indigo-500 transition">关于</a>
-        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition">
-          <svg id="sun" class="w-5 h-5 hidden dark:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-          <svg id="moon" class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      <div class="flex items-center gap-8">
+        <button onclick="showList()" class="hover:text-purple-400">Posts</button>
+        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-white/10">
+          <svg class="w-5 h-5 hidden dark:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
         </button>
-      </nav>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="pt-32 pb-20 px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
-        写点喜欢的东西
-      </h2>
-      <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">只有一些安静的文字。
-      </p>
+  <!-- 主容器 -->
+  <main class="pt-24 px-6 max-w-5xl mx-auto">
+
+    <!-- 文章列表 -->
+    <div id="list-view">
+      <section class="pt-10 pb-32">
+        <h2 class="text-5xl font-black text-center mb-16 neon-text">Recent Posts</h2>
+        <div id="posts-grid" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"></div>
+      </section>
     </div>
-  </section>
 
-  <!-- Articles -->
-  <section id="articles" class="max-w-5xl mx-auto px-6 pb-24">
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      <!-- 文章卡片示例 -->
-      <article class="glass rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-        <div class="h-48 bg-gradient-to-br from-indigo-400 to-purple-600"></div>
-        <div class="p-6">
-          <time class="text-sm text-gray-500">2025.11.28</time>
-          <h3 class="text-xl font-semibold mt-2 mb-3">在 AI 时代，我们为什么还要写博客</h3>
-          <p class="text-gray-600 dark:text-gray-400 line-clamp-3">
-            很多人说博客死了，被短视频、AI 摘要取代。但我依然固执地相信，长内容才是思考的容器……
-          </p>
-          <div class="mt-4 text-indigo-500 font-medium">阅读全文 →</div>
-        </div>
-      </article>
-
-      <article class="glass rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-        <div class="h-48 bg-gradient-to-br from-pink-400 to-rose-600"></div>
-        <div class="p-6">
-          <time class="text-sm text-gray-500">2025.11.15</time>
-          <h3 class="text-xl font-semibold mt-2 mb-3">我把 RSS 重新捡起来了</h3>
-          <p class="text-gray-600 dark:text-gray-400 line-clamp-3">
-            在算法时间线泛滥的今天，RSS 像一座私人图书馆，安静、干净、只属于你……
-          </p>
-          <div class="mt-4 text-indigo-500 font-medium">阅读全文 →</div>
-        </div>
-      </article>
-
-      <article class="glass rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-        <div class="h-48 bg-gradient-to-br from-emerald-400 to-teal-600"></div>
-        <div class="p-6">
-          <time class="text-sm text-gray-500">2025.10.30</time>
-          <h3 class="text-xl font-semibold mt-2 mb-3">极简主义者的数字生活</h3>
-          <p class="text-gray-600 dark:text-gray-400 line-clamp-3">
-            删除 99% 的 App 之后，我第一次感受到大脑的安静……
-          </p>
-          <div class="mt-4 text-indigo-500 font-medium">阅读全文 →</div>
-        </div>
-      </article>
-      <!-- 继续添加更多卡片即可 -->
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="py-24 px-6 bg-gradient-to-b from-transparent to-gray-100 dark:to-gray-900">
-    <div class="max-w-3xl mx-auto glass rounded-3xl p-12 text-center">
-      <h2 class="text-4xl font-bold mb-8">关于我</h2>
-      <p class="text-lg leading-loose text-gray-700 dark:text-gray-300">
-        一个普通写字的人。<br/><br/>
-      </p>
-      <div class="mt-10 flex justify-center gap-6 text-2xl">
-        <a href="https://github.com/ancodeb999/" class="hover:text-indigo-500 transition">GitHub</a>
+    <!-- 文章阅读视图 -->
+    <article id="post-view" class="hidden prose prose-invert max-w-3xl mx-auto pb-32">
+      <div class="glass rounded-3xl p-10 md:p-16">
+        <button onclick="showList()" class="mb-8 text-purple-400 hover:underline">&larr; 返回列表</button>
+        <div id="post-content"></div>
       </div>
-    </div>
-  </section>
+    </article>
+  </main>
 
-  <!-- Footer -->
-  <footer class="py-12 text-center text-sm text-gray-500">
-    © 2025 ancodeb999 All rights reserved.
+  <footer class="py-12 text-center opacity-60 text-sm">
+    © 2025 ancodeb · Powered by caffeine & Markdown
   </footer>
 
   <script>
-    // 滚动进度条
-    window.onscroll = () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById("progress").style.transform = `scaleX(${scrolled / 100})`;
-    };
+    const posts = [];
+    const grid = document.getElementById('posts-grid');
+    const postView = document.getElementById('post-view');
+    const postContent = document.getElementById('post-content');
 
-    // 暗黑模式切换
-    const toggle = document.getElementById("theme-toggle");
-    const body = document.body;
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      body.classList.add('dark');
-    }
-    toggle.addEventListener('click', () => {
-      body.classList.toggle('dark');
-      localStorage.theme = body.classList.contains('dark') ? 'dark' : 'light';
+    // 自动读取 posts 文件夹下的所有 .md 文件（需要部署到支持目录索引的平台，或者改成本地打包）
+    // 这里提供两种方式：1. 手动维护文章列表（最稳）  2. 自动读取（Vercel/Netlify 配合 GitHub 可行）
+    // 我先给你最稳的「手动列表」版，你只需要在下面数组里加文件名即可
+
+    const postFiles = [
+      "2025-11-30-把博客做成单文件.md",
+      "2025-11-25-neovim-2025配置.md",
+      "2025-11-18-告别-notion.md",
+      "2025-11-10-rust-为什么这么香.md"
+      // ← 你每写一篇新的 md，就在这里加一行文件名即可
+    ];
+
+    // 如果你部署在 Vercel/Netlify，云函数可以自动读取，这里先用手动方式，零配置最稳
+    postFiles.reverse().forEach(filename => {
+      fetch(`posts/${filename}`)
+        .then(r => r.text())
+        .then(md => {
+          const title = filename.slice(11, -3).replace(/-/g, ' ');
+          const date = filename.slice(0, 10);
+          const html = marked.parse(md);
+          const temp = document.createElement('div');
+          temp.innerHTML = html;
+          const firstParagraph = temp.textContent.trim().split('\n')[0].slice(0, 140) + '...';
+
+          const card = document.createElement('div');
+          card.className = "glass rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 hover:-translate-y-3 cursor-pointer group";
+          card.innerHTML = `
+            <div class="h-52 bg-gradient-to-br from-purple-600/80 to-pink-600/80 group-hover:scale-110 transition-transform duration-700"></div>
+            <div class="p-6">
+              <time class="text-sm opacity-70">${date}</time>
+              <h3 class="text-2xl font-bold mt-2 mb-3 group-hover:text-purple-400 transition">${title}</h3>
+              <p class="text-gray-400 line-clamp-3">${firstParagraph}</p>
+              <div class="mt-5 text-purple-400 font-medium">阅读全文 →</div>
+            </div>
+          `;
+          card.onclick = () => showPost(title, date, html);
+          grid.appendChild(card);
+        });
     });
+
+    function showPost(title, date, html) {
+      document.title = title + " - ancodeb";
+      postContent.innerHTML = `<h1 class="text-4xl md:text-5xl font-black mb-4 neon-text">${title}</h1>
+                               <time class="text-purple-400 opacity-80">${date}</time>
+                               <div class="mt-8 markdown-body">${html}</div>`;
+      document.getElementById('list-view').classList.add('hidden');
+      postView.classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    function showList() {
+      document.title = "ancodeb";
+      document.getElementById('list-view').classList.remove('hidden');
+      postView.classList.add('hidden');
+    }
+
+    // 进度条 + 主题切换（同之前）
+    window.onscroll = () => {
+      const scrolled = (document.documentElement.scrollTop || document.body.scrollTop) / 
+                       (document.documentElement.scrollHeight - document.documentElement.clientHeight) * 100;
+      document.getElementById('progress').style.transform = `scaleX(${scrolled / 100})`;
+    };
+    const toggle = document.getElementById('theme-toggle');
+    if (localStorage.theme === 'light' || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.body.classList.add('light');
+    }
+    toggle.onclick = () => {
+      document.body.classList.toggle('light');
+      localStorage.theme = document.body.classList.contains('light') ? 'light' : 'dark';
+    };
   </script>
 </body>
 </html>
