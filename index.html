@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ancodeb | 写字的人</title>
+  <meta name="description" content="一个安静的角落，写点喜欢的东西。" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Marked.js 用于渲染 Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- 图标库 -->
+  <script src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/index.min.js"></script>
+  
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #1f2937;
+      --primary: #6366f1;
+      --card: rgba(255, 255, 255, 0.75);
+      --border: rgba(0,0,0,0.08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1120;
+        --text: #e2e8f0;
+        --primary: #818cf8;
+        --card: rgba(30, 34, 58, 0.65);
+        --border: rgba(255,255,255,0.1);
+      }
+    }
+    body.dark {
+      --bg: #0f1120;
+      --text: #e2e8f0;
+      --primary: #818cf8;
+      --card: rgba(30, 34, 58, 0.65);
+      --border: rgba(255,255,255,0.1);
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+    }
+    #progress {
+      position: fixed;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--primary);
+      transform-origin: 0%;
+      z-index: 50;
+      transition: transform 0.2s;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
 
+  <!-- 滚动进度条 -->
+  <div id="progress"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full z-40 glass border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-5xl mx-auto px-6 py-5 flex justify-between items-center">
+      <h1 class="text-2xl font-bold tracking-tight">
+        <a href="#" class="hover:text-indigo-500 transition">墨染</a>
+      </h1>
+      <nav class="flex items-center gap-8">
+        <a href="#articles" class="hover:text-indigo-500 transition">文章</a>
+        <a href="#about" class="hover:text-indigo-500 transition">关于</a>
+        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition">
+          <svg id="sun" class="w-5 h-5 hidden dark:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <svg id="moon" class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+        写点喜欢的东西
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">只有一些安静的文字。
+      </p>
+    </div>
+  </section>
+
+  <!-- Articles -->
+  <section id="articles" class="max-w-5xl mx-auto px-6 pb-24">
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <!-- 文章卡片示例 -->
+      <article class="glass rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+        <div class="h-48 bg-gradient-to-br from-indigo-400 to-purple-600"></div>
+        <div class="p-6">
+          <time class="text-sm text-gray-500">2025.11.28</time>
+          <h3 class="text-xl font-semibold mt-2 mb-3">在 AI 时代，我们为什么还要写博客</h3>
+          <p class="text-gray-600 dark:text-gray-400 line-clamp-3">
+            很多人说博客死了，被短视频、AI 摘要取代。但我依然固执地相信，长内容才是思考的容器……
+          </p>
+          <div class="mt-4 text-indigo-500 font-medium">阅读全文 →</div>
+        </div>
+      </article>
+
+      <article class="glass rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+        <div class="h-48 bg-gradient-to-br from-pink-400 to-rose-600"></div>
+        <div class="p-6">
+          <time class="text-sm text-gray-500">2025.11.15</time>
+          <h3 class="text-xl font-semibold mt-2 mb-3">我把 RSS 重新捡起来了</h3>
+          <p class="text-gray-600 dark:text-gray-400 line-clamp-3">
+            在算法时间线泛滥的今天，RSS 像一座私人图书馆，安静、干净、只属于你……
+          </p>
+          <div class="mt-4 text-indigo-500 font-medium">阅读全文 →</div>
+        </div>
+      </article>
+
+      <article class="glass rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+        <div class="h-48 bg-gradient-to-br from-emerald-400 to-teal-600"></div>
+        <div class="p-6">
+          <time class="text-sm text-gray-500">2025.10.30</time>
+          <h3 class="text-xl font-semibold mt-2 mb-3">极简主义者的数字生活</h3>
+          <p class="text-gray-600 dark:text-gray-400 line-clamp-3">
+            删除 99% 的 App 之后，我第一次感受到大脑的安静……
+          </p>
+          <div class="mt-4 text-indigo-500 font-medium">阅读全文 →</div>
+        </div>
+      </article>
+      <!-- 继续添加更多卡片即可 -->
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-24 px-6 bg-gradient-to-b from-transparent to-gray-100 dark:to-gray-900">
+    <div class="max-w-3xl mx-auto glass rounded-3xl p-12 text-center">
+      <h2 class="text-4xl font-bold mb-8">关于我</h2>
+      <p class="text-lg leading-loose text-gray-700 dark:text-gray-300">
+        一个普通写字的人。<br/><br/>
+      </p>
+      <div class="mt-10 flex justify-center gap-6 text-2xl">
+        <a href="#" class="hover:text-indigo-500 transition">Twitter</a>
+        <a href="#" class="hover:text-indigo-500 transition">GitHub</a>
+        <a href="#" class="hover:text-indigo-500 transition">RSS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 text-center text-sm text-gray-500">
+    © 2025 ancodeb999 All rights reserved.
+  </footer>
+
+  <script>
+    // 滚动进度条
+    window.onscroll = () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progress").style.transform = `scaleX(${scrolled / 100})`;
+    };
+
+    // 暗黑模式切换
+    const toggle = document.getElementById("theme-toggle");
+    const body = document.body;
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      body.classList.add('dark');
+    }
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      localStorage.theme = body.classList.contains('dark') ? 'dark' : 'light';
+    });
+  </script>
+</body>
+</html>
