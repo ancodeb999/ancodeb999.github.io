@@ -77,16 +77,9 @@
     const postView = document.getElementById('post-view');
     const postContent = document.getElementById('post-content');
 
-    // 自动读取 posts 文件夹下的所有 .md 文件（需要部署到支持目录索引的平台，或者改成本地打包）
-    // 这里提供两种方式：1. 手动维护文章列表（最稳）  2. 自动读取（Vercel/Netlify 配合 GitHub 可行）
-    // 我先给你最稳的「手动列表」版，你只需要在下面数组里加文件名即可
 
     const postFiles = [
-      "2025-11-30-把博客做成单文件.md",
-      "2025-11-25-neovim-2025配置.md",
-      "2025-11-18-告别-notion.md",
-      "2025-11-10-rust-为什么这么香.md"
-      // ← 你每写一篇新的 md，就在这里加一行文件名即可
+
     ];
 
     // 如果你部署在 Vercel/Netlify，云函数可以自动读取，这里先用手动方式，零配置最稳
@@ -132,21 +125,6 @@
       document.getElementById('list-view').classList.remove('hidden');
       postView.classList.add('hidden');
     }
-
-    // 进度条 + 主题切换（同之前）
-    window.onscroll = () => {
-      const scrolled = (document.documentElement.scrollTop || document.body.scrollTop) / 
-                       (document.documentElement.scrollHeight - document.documentElement.clientHeight) * 100;
-      document.getElementById('progress').style.transform = `scaleX(${scrolled / 100})`;
-    };
-    const toggle = document.getElementById('theme-toggle');
-    if (localStorage.theme === 'light' || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-      document.body.classList.add('light');
-    }
-    toggle.onclick = () => {
-      document.body.classList.toggle('light');
-      localStorage.theme = document.body.classList.contains('light') ? 'light' : 'dark';
-    };
   </script>
 </body>
 </html>
