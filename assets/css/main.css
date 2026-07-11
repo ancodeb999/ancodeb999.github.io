@@ -7,6 +7,10 @@
   --accent: #9b3d2e;
   --accent-dark: #64261f;
   --soft: #ece5da;
+  --glass: rgba(255, 252, 246, .68);
+  --glass-strong: rgba(255, 252, 246, .82);
+  --glass-line: rgba(255, 255, 255, .78);
+  --glass-shadow: 0 24px 70px rgba(64, 45, 32, .11);
   --max: 1120px;
 }
 
@@ -22,9 +26,37 @@ html {
 }
 
 body {
+  position: relative;
   min-width: 320px;
   margin: 0;
+  overflow-x: hidden;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, .52), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(180deg, rgba(236, 229, 218, .42), rgba(246, 243, 238, .88) 34%, rgba(233, 222, 207, .64));
   line-height: 1.7;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  content: "";
+  background:
+    linear-gradient(108deg, rgba(255, 255, 255, .7) 0 9%, transparent 22% 100%),
+    linear-gradient(162deg, transparent 0 38%, rgba(188, 104, 84, .12) 48%, transparent 64%),
+    linear-gradient(24deg, transparent 0 46%, rgba(92, 72, 56, .1) 56%, transparent 72%);
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  background:
+    linear-gradient(125deg, transparent 0 18%, rgba(255, 255, 255, .3) 19%, transparent 24% 100%),
+    repeating-linear-gradient(112deg, rgba(255, 255, 255, .18) 0 1px, transparent 1px 18px);
+  opacity: .48;
+  pointer-events: none;
 }
 
 a {
@@ -40,12 +72,21 @@ a {
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 28px 0 20px;
-  border-bottom: 1px solid var(--line);
+  padding: 18px 18px;
+  margin-top: 18px;
+  background: rgba(255, 252, 246, .54);
+  border: 1px solid rgba(255, 255, 255, .62);
+  border-radius: 8px;
+  box-shadow: 0 14px 40px rgba(64, 45, 32, .08);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
 }
 
 .brand {
@@ -81,7 +122,7 @@ a {
 
 .site-nav a:hover {
   color: var(--ink);
-  background: var(--soft);
+  background: rgba(255, 255, 255, .46);
 }
 
 .site-main {
@@ -89,6 +130,7 @@ a {
 }
 
 .hero {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
   gap: 48px;
@@ -96,6 +138,21 @@ a {
   align-items: end;
   padding: 74px 0 44px;
   border-bottom: 1px solid var(--line);
+}
+
+.hero::before {
+  position: absolute;
+  inset: 42px -24px 24px;
+  z-index: -1;
+  content: "";
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .06) 42%, rgba(155, 61, 46, .08)),
+    linear-gradient(225deg, rgba(255, 252, 246, .18), rgba(255, 255, 255, 0));
+  border: 1px solid rgba(255, 255, 255, .52);
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .82), inset 0 -18px 48px rgba(255, 255, 255, .18);
+  backdrop-filter: blur(16px) saturate(132%);
+  -webkit-backdrop-filter: blur(16px) saturate(132%);
 }
 
 .eyebrow,
@@ -125,10 +182,37 @@ a {
 }
 
 .hero__note {
+  position: relative;
+  overflow: hidden;
   padding: 24px;
-  background: var(--paper);
-  border: 1px solid var(--line);
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
   border-radius: 8px;
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, .84);
+  backdrop-filter: blur(24px) saturate(145%);
+  -webkit-backdrop-filter: blur(24px) saturate(145%);
+}
+
+.hero__note::before,
+.featured-card::before,
+.post-card::before,
+.post-nav a::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(125deg, rgba(255, 255, 255, .72), rgba(255, 255, 255, .1) 36%, transparent 58%),
+    linear-gradient(305deg, transparent 44%, rgba(255, 255, 255, .34));
+  opacity: .6;
+  pointer-events: none;
+}
+
+.hero__note > *,
+.featured-card > *,
+.post-card > *,
+.post-nav a > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero__note span {
@@ -171,14 +255,26 @@ a {
 }
 
 .featured-card {
+  position: relative;
+  overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 28px;
   align-items: end;
   padding: 34px;
-  background: var(--paper);
-  border: 1px solid var(--line);
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-line);
   border-radius: 8px;
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, .86);
+  backdrop-filter: blur(26px) saturate(148%);
+  -webkit-backdrop-filter: blur(26px) saturate(148%);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.featured-card:hover {
+  border-color: rgba(255, 255, 255, .96);
+  box-shadow: 0 30px 86px rgba(64, 45, 32, .16), inset 0 1px 0 rgba(255, 255, 255, .9);
+  transform: translateY(-2px);
 }
 
 .featured-card h3 {
@@ -207,11 +303,22 @@ a {
 }
 
 .post-card {
+  position: relative;
+  overflow: hidden;
   min-height: 260px;
   padding: 28px;
-  background: var(--paper);
-  border: 1px solid var(--line);
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
   border-radius: 8px;
+  box-shadow: 0 18px 52px rgba(64, 45, 32, .08), inset 0 1px 0 rgba(255, 255, 255, .84);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  transition: transform .22s ease, border-color .22s ease;
+}
+
+.post-card:hover {
+  border-color: rgba(255, 255, 255, .94);
+  transform: translateY(-2px);
 }
 
 .post-card h3 {
@@ -292,10 +399,14 @@ a {
 .tag-list span {
   padding: 5px 10px;
   color: var(--accent-dark);
-  background: var(--soft);
+  background: rgba(255, 252, 246, .56);
+  border: 1px solid rgba(255, 255, 255, .7);
   border-radius: 6px;
   font-size: .84rem;
   font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .74);
+  backdrop-filter: blur(14px) saturate(136%);
+  -webkit-backdrop-filter: blur(14px) saturate(136%);
 }
 
 .prose {
@@ -360,12 +471,17 @@ a {
 }
 
 .post-nav a {
+  position: relative;
+  overflow: hidden;
   display: grid;
   gap: 4px;
   padding: 18px;
-  background: var(--paper);
-  border: 1px solid var(--line);
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
   border-radius: 8px;
+  box-shadow: 0 14px 42px rgba(64, 45, 32, .08), inset 0 1px 0 rgba(255, 255, 255, .84);
+  backdrop-filter: blur(20px) saturate(138%);
+  -webkit-backdrop-filter: blur(20px) saturate(138%);
   font-weight: 700;
 }
 
