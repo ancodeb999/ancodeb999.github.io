@@ -1,0 +1,37 @@
+title: 浮光札记
+description: 技术、生活与长期思考的私人刊物
+author:
+  name: FIB
+  bio: 写代码，也写生活里缓慢发亮的部分。
+  location: Tokyo
+url: ""
+baseurl: ""
+lang: zh-CN
+timezone: Asia/Tokyo
+
+permalink: /:categories/:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: FIB
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
