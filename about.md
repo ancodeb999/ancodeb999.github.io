@@ -11,3 +11,8 @@ permalink: /about/
 我喜欢清晰、安静、有余量的东西。写作也是这样：不急着给所有事情下结论，而是把当下能看见的线索整理出来，留给未来的自己继续确认。
 
 你可以从首页的精选文章开始，也可以去归档页按时间慢慢翻。
+
+## 我的账号
+
+- GitHub：[ancodeb999](https://github.com/ancodeb999/)
+- Bilibili：[ancodeb](https://space.bilibili.com/3690980228204585)

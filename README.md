@@ -1,4 +1,4 @@
-# 浮光札记
+# ancodeb
 
 一个面向 GitHub Pages 的 Jekyll 中文个人博客，视觉方向是编辑杂志感。
 

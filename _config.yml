@@ -1,7 +1,7 @@
-title: 浮光札记
+title: ancodeb
 description: 技术、生活与长期思考的私人刊物
 author:
-  name: FIB
+  name: ancodeb
   bio: 写代码，也写生活里缓慢发亮的部分。
   location: Tokyo
 url: "https://ancodeb999.github.io"
@@ -29,7 +29,7 @@ defaults:
       type: posts
     values:
       layout: post
-      author: FIB
+      author: ancodeb
 
 exclude:
   - Gemfile
