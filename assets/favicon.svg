@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ancodeb icon">
+  <defs>
+    <linearGradient id="glass" x1="18" y1="12" x2="112" y2="118" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fffaf1"/>
+      <stop offset="0.45" stop-color="#d9cfc2"/>
+      <stop offset="1" stop-color="#9b3d2e"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="30" y1="20" x2="98" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="#171513"/>
+  <path d="M28 83c0-25 17-43 39-43 16 0 29 9 34 23-7-7-17-11-30-11-18 0-31 13-31 31 0 10 5 17 14 17 8 0 14-5 17-14l6-20h17l-9 31c-3 11-13 18-26 18-19 0-31-13-31-32Z" fill="url(#glass)"/>
+  <path d="M35 78c5-18 18-31 35-31 10 0 19 3 26 9-6-10-17-16-30-16-21 0-38 18-38 43 0 11 4 20 11 26-5-8-6-18-4-31Z" fill="url(#shine)"/>
+  <path d="M31 31h66" stroke="#fffaf1" stroke-opacity="0.3" stroke-width="2" stroke-linecap="round"/>
+</svg>
