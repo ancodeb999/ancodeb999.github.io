@@ -35,3 +35,10 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - .bundle
+  - .jekyll-cache
+  - .jekyll-metadata
+  - .sass-cache
+  - vendor
+  - vendor/bundle
+  - vendor/cache
